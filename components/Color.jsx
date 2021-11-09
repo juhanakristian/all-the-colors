@@ -1,4 +1,4 @@
-export default function Color({ name, value }) {
+export default function Color({ name, value, hsl }) {
   function handleClick() {
     navigator.clipboard.writeText(name);
   }
@@ -10,7 +10,8 @@ export default function Color({ name, value }) {
       onClick={handleClick}
     >
       <div className="bg-gray-700 text-white text-xs p-1 flex lowercase">
-        {name}
+        <span>{name}</span>
+        {/* <span>{`HSL: ${hsl.h} ${hsl.s} ${hsl.l}`}</span> */}
       </div>
     </div>
   );

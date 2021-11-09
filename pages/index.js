@@ -40,7 +40,6 @@ const colors = [
   { name: "DarkSalmon", value: "#E9967A" },
   { name: "DarkSeaGreen", value: "#8FBC8F" },
   { name: "DarkSlateBlue", value: "#483D8B" },
-  { name: "DarkSlateGray", value: "#2F4F4F" },
   { name: "DarkSlateGrey", value: "#2F4F4F" },
   { name: "DarkTurquoise", value: "#00CED1" },
   { name: "DarkViolet", value: "#9400D3" },
@@ -150,19 +149,25 @@ const colors = [
   { name: "White", value: "#FFFFFF" },
   { name: "WhiteSmoke", value: "#F5F5F5" },
   { name: "Yellow", value: "#FFFF00" },
-  { name: "YellowGreen", value: "#9ACD" },
+  { name: "YellowGreen", value: "#9ACD32" },
 ];
 
 function sortByLightness(a, b) {
   const aHSL = RGBToHSL(...hexToRGB(a.value));
   const bHSL = RGBToHSL(...hexToRGB(b.value));
 
-  return aHSL.l > bHSL.l ? 1 : -1;
+  return aHSL.l > bHSL.l ? -1 : 1;
 }
 
 function sortByHue(a, b) {
   const aHSL = RGBToHSL(...hexToRGB(a.value));
   const bHSL = RGBToHSL(...hexToRGB(b.value));
+
+  if (aHSL.h === bHSL.h) {
+    if (aHSL.s === bHSL.s) return aHSL.l > bHSL.l ? 1 : -1;
+
+    return aHSL.s > bHSL.s ? 1 : -1;
+  }
 
   return aHSL.h > bHSL.h ? 1 : -1;
 }
@@ -172,10 +177,15 @@ export default function Home() {
 
   const sortFunctions = {
     hue: sortByHue,
-    ligthness: sortByLightness,
+    lightness: sortByLightness,
   };
 
-  const sortedColors = [...colors];
+  const colorsWithHSL = colors.map((color) => ({
+    ...color,
+    hsl: RGBToHSL(...hexToRGB(color.value)),
+  }));
+
+  const sortedColors = [...colorsWithHSL];
   sortedColors.sort(sortFunctions[sortBy]);
 
   return (
@@ -190,10 +200,9 @@ export default function Home() {
           All the colors of CSS
         </h1>
         <select
-          className="p-2 m-4 ml-0"
+          className="p-2 m-4 ml-0 rounded-md"
           onChange={(e) => {
             setSortBy(e.target.value);
-            console.log(e.target.value);
           }}
           value={sortBy}
         >
