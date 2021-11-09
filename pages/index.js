@@ -1,5 +1,9 @@
 import * as React from "react";
+
 import Head from "next/head";
+
+import { motion } from "framer-motion";
+
 import Color from "../components/Color";
 import { hexToRGB, RGBToHSL } from "../util/color";
 
@@ -188,6 +192,27 @@ export default function Home() {
   const sortedColors = [...colorsWithHSL];
   sortedColors.sort(sortFunctions[sortBy]);
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.01,
+      },
+    },
+  };
+
+  const item = {
+    hidden: {
+      scale: 1.1,
+      opacity: 0,
+    },
+    show: {
+      scale: 1,
+      opacity: 1,
+    },
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-20 bg-gray-900">
       <Head>
@@ -209,11 +234,18 @@ export default function Home() {
           <option value="hue">Hue</option>
           <option value="lightness">Lightness</option>
         </select>
-        <div className="flex flex-wrap gap-5 pb-10">
+        <motion.div
+          className="flex flex-wrap gap-5 pb-10"
+          initial="hidden"
+          animate="show"
+          variants={container}
+        >
           {sortedColors.map((color) => (
-            <Color key={color.name} {...color} />
+            <motion.div variants={item}>
+              <Color key={color.name} {...color} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </main>
 
       <footer className="flex items-center justify-center w-full h-24 border-t"></footer>

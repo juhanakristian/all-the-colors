@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 export default function Color({ name, value, hsl }) {
   function handleClick() {
     navigator.clipboard.writeText(name);
