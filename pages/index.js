@@ -247,12 +247,12 @@ export default function Home() {
           variants={container}
         >
           {sortedColors.map((color) => (
-            <motion.div variants={item} onClick={handleCopy}>
+            <motion.div variants={item} onClick={handleCopy} key={color.name}>
               <ClickNotificationArea
                 onClick={handleCopy}
                 text={`Copied ${color.value} to clipboard`}
               >
-                <Color key={color.name} {...color} />
+                <Color {...color} />
               </ClickNotificationArea>
             </motion.div>
           ))}
