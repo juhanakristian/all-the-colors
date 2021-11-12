@@ -6,7 +6,7 @@ export function ClickNotificationArea({ onClick, children, text }) {
   const [isVisible, setIsVisible] = React.useState(false);
 
   function handleClick(event) {
-    setPosition({ x: event.clientX, y: event.clientY });
+    setPosition({ x: event.pageX, y: event.pageY });
 
     setIsVisible(true);
     setTimeout(() => {
