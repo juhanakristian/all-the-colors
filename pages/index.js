@@ -5,6 +5,9 @@ import Head from "next/head";
 import { motion } from "framer-motion";
 
 import Color from "../components/Color";
+import Notification, {
+  ClickNotificationArea,
+} from "../components/Notification";
 import { hexToRGB, RGBToHSL } from "../util/color";
 
 const colors = [
@@ -176,21 +179,24 @@ function sortByHue(a, b) {
   return aHSL.h > bHSL.h ? 1 : -1;
 }
 
+const colorsWithHSL = colors.map((color) => ({
+  ...color,
+  hsl: RGBToHSL(...hexToRGB(color.value)),
+}));
+
 export default function Home() {
   const [sortBy, setSortBy] = React.useState("hue");
+  const [position, setPosition] = React.useState({ x: 0, y: 0 });
 
   const sortFunctions = {
     hue: sortByHue,
     lightness: sortByLightness,
   };
 
-  const colorsWithHSL = colors.map((color) => ({
-    ...color,
-    hsl: RGBToHSL(...hexToRGB(color.value)),
-  }));
-
   const sortedColors = [...colorsWithHSL];
   sortedColors.sort(sortFunctions[sortBy]);
+
+  function handleCopy() {}
 
   const container = {
     hidden: { opacity: 0 },
@@ -241,8 +247,13 @@ export default function Home() {
           variants={container}
         >
           {sortedColors.map((color) => (
-            <motion.div variants={item}>
-              <Color key={color.name} {...color} />
+            <motion.div variants={item} onClick={handleCopy}>
+              <ClickNotificationArea
+                onClick={handleCopy}
+                text={`Copied ${color.value} to clipboard`}
+              >
+                <Color key={color.name} {...color} />
+              </ClickNotificationArea>
             </motion.div>
           ))}
         </motion.div>

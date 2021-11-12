@@ -11,11 +11,9 @@ export default function Color({ name, value, hsl }) {
       style={{ backgroundColor: value }}
       onClick={handleClick}
     >
-      <div className="bg-gray-700 text-white text-xs p-1 flex lowercase">
-        <span>{name}</span>
-      </div>
       <div className="flex justify-between text-xs bg-gray-700 bg-opacity-40 text-white p-1">
-        <span>{`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`}</span>
+        <span>{name}</span>
+        {/* <span>{`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`}</span> */}
         <span>{value}</span>
       </div>
     </div>
