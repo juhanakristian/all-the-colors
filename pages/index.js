@@ -250,7 +250,7 @@ export default function Home() {
             <motion.div variants={item} onClick={handleCopy} key={color.name}>
               <ClickNotificationArea
                 onClick={handleCopy}
-                text={`Copied ${color.value} to clipboard`}
+                text={`Copied ${color.name} to clipboard`}
               >
                 <Color {...color} />
               </ClickNotificationArea>
