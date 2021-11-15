@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 
-export function ClickNotificationArea({ onClick, children, text }) {
+export function ClickNotificationArea({ onClick, children, text = "Copied" }) {
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -39,13 +39,14 @@ export default function Notification({ children, x, y }) {
   const variants = {
     hidden: {
       opacity: 1,
-      top: y - offset.y,
+      top: y - 20 - offset.y,
     },
     show: {
       opacity: 0,
-      top: y - 100 - offset.y,
+      top: y - 50 - offset.y,
       transition: {
         duration: 1,
+        ease: "easeOut",
       },
     },
   };

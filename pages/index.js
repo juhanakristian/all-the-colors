@@ -220,7 +220,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-20 bg-gray-900">
+    <div className="flex flex-col items-center justify-center min-h-screen py-20 bg-gradient-to-br from-gray-800 to-gray-900">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -248,18 +248,13 @@ export default function Home() {
         >
           {sortedColors.map((color) => (
             <motion.div variants={item} onClick={handleCopy} key={color.name}>
-              <ClickNotificationArea
-                onClick={handleCopy}
-                text={`Copied ${color.name} to clipboard`}
-              >
+              <ClickNotificationArea onClick={handleCopy}>
                 <Color {...color} />
               </ClickNotificationArea>
             </motion.div>
           ))}
         </motion.div>
       </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t"></footer>
     </div>
   );
 }
