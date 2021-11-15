@@ -9,6 +9,7 @@ import Notification, {
   ClickNotificationArea,
 } from "../components/Notification";
 import { hexToRGB, RGBToHSL } from "../util/color";
+import Profile from "../components/Profile";
 
 const colors = [
   { name: "AliceBlue", value: "#F0F8FF" },
@@ -220,14 +221,17 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-20 bg-gradient-to-br from-gray-800 to-gray-900">
+    <div className="flex flex-col items-center justify-center min-h-screen py-4 bg-gradient-to-br from-gray-800 to-gray-900">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className="flex justify-end w-full pr-4">
+        <Profile />
+      </div>
 
-      <main className="w-full px-20 ">
-        <h1 className="text-6xl font-bold pb-10 text-gray-50">
+      <main className="w-full px-4 md:px-10 lg:px-20 py-10">
+        <h1 className="text-7xl font-bold pb-10 text-gray-50">
           All the colors of CSS
         </h1>
         <select
